@@ -1,0 +1,8 @@
+================
+thecut.redirects
+================
+
+
+Django app which provides a receiver to be connected to a model's pre-save
+signal which will create redirect rules when an instance's ``get_absolute_url``
+value changes.
