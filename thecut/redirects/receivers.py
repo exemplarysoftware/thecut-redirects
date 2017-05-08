@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 from django.conf import settings
-from django.contrib.redirects.models import Redirect
 
 
 def create_redirect(sender, instance, raw, **kwargs):
 
-    # Only proceed if not raw and we're dealing with an existing object
-    if not raw and instance.pk:
+    # Only proceed if not raw, we're dealing with an existing object, and the
+    # contrib redirects app is installed.
+    if not raw and instance.pk \
+            and 'django.contrib.redirects' in settings.INSTALLED_APPS:
 
-        # Only proceed if the contrib redirects app is installed
-        if 'django.contrib.redirects' not in settings.INSTALLED_APPS:
-            return
+        from django.contrib.redirects.models import Redirect
 
         # Only proceed if an existing object exists
         try:
